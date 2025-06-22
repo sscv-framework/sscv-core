@@ -1,0 +1,210 @@
+name: Documentation Issue
+description: Report documentation issues or suggest improvements
+title: "[Docs]: "
+labels: ["documentation", "needs-triage"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Help us improve SSCV documentation! Whether it's a typo, missing information, or unclear explanations, we appreciate your feedback.
+
+  - type: dropdown
+    id: doc-type
+    attributes:
+      label: Documentation Type
+      description: What type of documentation issue is this?
+      options:
+        - Error/Typo
+        - Missing Information
+        - Unclear Explanation
+        - Outdated Content
+        - New Documentation Needed
+        - Translation Issue
+        - Example/Tutorial Request
+        - FAQ Addition
+    validations:
+      required: true
+
+  - type: dropdown
+    id: affected-docs
+    attributes:
+      label: Affected Documentation
+      description: Which documentation is affected?
+      options:
+        - README.md
+        - SPECIFICATION.md
+        - CONTRIBUTING.md
+        - examples/example-calculations.md
+        - examples/use-cases.md
+        - Calculator Interface (HTML)
+        - Code Comments
+        - GitHub Templates
+        - Other (specify below)
+    validations:
+      required: true
+
+  - type: input
+    id: file-location
+    attributes:
+      label: File and Section
+      description: Specific file path and section/line number (if applicable)
+      placeholder: "examples/use-cases.md, section 'Vulnerability Management', line 25"
+
+  - type: textarea
+    id: current-content
+    attributes:
+      label: Current Content
+      description: Copy the current text that needs improvement (if applicable)
+      placeholder: |
+        Paste the current text here...
+        
+        For example:
+        "The SSCV framework calculates risk by multiplying factors..."
+
+  - type: textarea
+    id: issue-description
+    attributes:
+      label: Issue Description
+      description: Clearly describe what's wrong or what's missing
+      placeholder: |
+        Describe the documentation issue...
+        
+        Examples:
+        - "The calculation example in step 3 shows wrong numbers"
+        - "Missing explanation of what 'X' means for unevaluated components"
+        - "Use case #4 needs more detail about implementation steps"
+        - "Typo: 'calcluation' should be 'calculation'"
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggested-content
+    attributes:
+      label: Suggested Improvement
+      description: Propose the corrected or improved content
+      placeholder: |
+        Suggest how to fix or improve the documentation...
+        
+        For error corrections:
+        "Should be: 'The SSCV framework calculates risk by...' (corrected spelling)"
+        
+        For new content:
+        "Should add: 'The X value indicates that this component has not been assessed and will not affect the calculation.'"
+
+  - type: checkboxes
+    id: doc-issues
+    attributes:
+      label: Specific Issues (check all that apply)
+      options:
+        - label: Spelling or grammar errors
+        - label: Technical inaccuracy
+        - label: Missing examples
+        - label: Unclear instructions
+        - label: Broken links
+        - label: Outdated information
+        - label: Missing context or background
+        - label: Poor formatting or structure
+        - label: Accessibility issues
+        - label: Translation errors
+
+  - type: dropdown
+    id: audience
+    attributes:
+      label: Target Audience
+      description: Who would benefit most from this documentation improvement?
+      options:
+        - New users learning SSCV
+        - Security professionals implementing SSCV
+        - Developers integrating SSCV
+        - Executives making decisions
+        - Contributors to the project
+        - All users
+        - Other (specify below)
+
+  - type: textarea
+    id: user-perspective
+    attributes:
+      label: User Perspective
+      description: From what perspective did you encounter this issue?
+      placeholder: |
+        Example contexts:
+        - "As a new user trying to understand SSCV for the first time..."
+        - "As a security analyst implementing SSCV in my organization..."
+        - "As a developer trying to integrate the calculator..."
+        - "As a manager evaluating SSCV for adoption..."
+
+  - type: textarea
+    id: additional-examples
+    attributes:
+      label: Additional Examples Needed
+      description: What specific examples or scenarios would be helpful?
+      placeholder: |
+        If requesting new examples:
+        - "Need example for cloud-native applications"
+        - "Example calculation for IoT devices"
+        - "Step-by-step integration with vulnerability scanners"
+        - "Real-world case study from financial services"
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How important is this documentation fix?
+      options:
+        - Low - Minor improvement, not urgent
+        - Medium - Would help user understanding
+        - High - Blocking user adoption or causing confusion
+        - Critical - Contains dangerous misinformation
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: contribution-offer
+    attributes:
+      label: Contribution
+      description: Are you willing to help improve this documentation?
+      options:
+        - label: I can submit a PR with the fix/improvement
+        - label: I can help review documentation changes
+        - label: I can provide additional examples or use cases
+        - label: I can help with proofreading
+        - label: I'm only reporting the issue (no contribution offer)
+
+  - type: textarea
+    id: related-issues
+    attributes:
+      label: Related Issues
+      description: Link to any related documentation issues or discussions
+      placeholder: |
+        Reference related issues:
+        - Related to #123 (feature request for better examples)
+        - Builds on discussion in #456
+        - Part of documentation overhaul mentioned in #789
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other relevant information
+      placeholder: |
+        Additional context:
+        - Screenshots of confusing sections
+        - Links to better examples from other projects
+        - Specific feedback from users who got confused
+        - Industry-specific considerations
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      description: Please verify you've completed these steps
+      options:
+        - label: I have checked if this documentation issue already exists
+          required: true
+        - label: I have provided specific location information where possible
+          required: true
+        - label: I have clearly described the issue and suggested improvement
+          required: true
+        - label: I have considered the target audience for this documentation
+          required: true

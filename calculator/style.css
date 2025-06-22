@@ -1,0 +1,374 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: white;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.calculator-section {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    margin-bottom: 2rem;
+}
+
+.input-section {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.cvss-input, .threshold-input {
+    text-align: center;
+    min-width: 200px;
+}
+
+.cvss-input label, .threshold-input label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.cvss-input input, .threshold-input input {
+    width: 200px;
+    padding: 12px;
+    font-size: 1.2rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    transition: border-color 0.3s ease;
+}
+
+.cvss-input input:focus, .threshold-input input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.threshold-input small {
+    display: block;
+    color: #6c757d;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    line-height: 1.4;
+}
+
+.components-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.component-group {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.component-group h3 {
+    color: #495057;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.component-group select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    background: white;
+    margin-bottom: 0.5rem;
+    transition: border-color 0.3s ease;
+}
+
+.component-group select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.component-group small {
+    color: #6c757d;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.results-section {
+    border-top: 2px solid #f1f3f4;
+    padding-top: 2rem;
+}
+
+.sscv-string, .risk-score, .comparison {
+    margin-bottom: 2rem;
+}
+
+.sscv-string h3, .risk-score h3, .comparison h3 {
+    color: #495057;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.sscv-display {
+    background: #f8f9fa;
+    padding: 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    word-break: break-all;
+    margin-bottom: 1rem;
+}
+
+.copy-btn {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.copy-btn:hover {
+    background: #218838;
+}
+
+.copy-btn.copied {
+    background: #17a2b8;
+}
+
+.score-display {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.score-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #495057;
+}
+
+.severity {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.severity.low {
+    background: #d4edda;
+    color: #155724;
+}
+
+.severity.medium {
+    background: #fff3cd;
+    color: #856404;  
+}
+
+.severity.high {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.severity.critical {
+    background: #f5c6cb;
+    color: #721c24;
+    font-weight: bold;
+}
+
+.score-details {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.score-details div {
+    margin-bottom: 0.5rem;
+}
+
+.score-details div:last-child {
+    margin-bottom: 0;
+}
+
+.comparison-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.bar-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.bar-container label {
+    min-width: 150px;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.bar {
+    flex: 1;
+    height: 30px;
+    background: #e9ecef;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    border-radius: 15px;
+    transition: width 0.5s ease, background-color 0.3s ease;
+    position: relative;
+}
+
+.bar-fill.low {
+    background: linear-gradient(90deg, #28a745, #20c997);
+}
+
+.bar-fill.medium {
+    background: linear-gradient(90deg, #ffc107, #fd7e14);
+}
+
+.bar-fill.high {
+    background: linear-gradient(90deg, #fd7e14, #dc3545);
+}
+
+.bar-fill.critical {
+    background: linear-gradient(90deg, #dc3545, #6f42c1);
+}
+
+.bar span {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #495057;
+}
+
+.warnings {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-top: 1rem;
+    display: none;
+}
+
+.warnings h4 {
+    color: #856404;
+    margin-bottom: 0.5rem;
+}
+
+.warnings ul {
+    margin-left: 1.2rem;
+}
+
+.warnings li {
+    color: #856404; 
+    margin-bottom: 0.3rem;
+}
+
+footer {
+    text-align: center;
+    color: white;
+    opacity: 0.8;
+}
+
+footer a {
+    color: white;
+    text-decoration: underline;
+}
+
+footer a:hover {
+    opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .calculator-section {
+        padding: 1rem;
+    }
+    
+    .input-section {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+    
+    .cvss-input input, .threshold-input input {
+        width: 100%;
+        max-width: 250px;
+    }
+    
+    .components-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .component-group {
+        padding: 1rem;
+    }
+    
+    .bar-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+    }
+    
+    .bar-container label {
+        min-width: auto;
+    }
+}

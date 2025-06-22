@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Critical Security Vulnerability
+    url: mailto:security@sscv-framework.org
+    about: For sensitive security issues that require private disclosure
+  - name: General Questions & Discussions
+    url: https://github.com/sscv-framework/sscv-core/discussions
+    about: Ask questions, share ideas, or discuss SSCV implementation
+  - name: Documentation & Specification
+    url: https://github.com/sscv-framework/sscv-core/blob/main/SPECIFICATION.md
+    about: Read the full SSCV specification and documentation
+  - name: Try the Calculator
+    url: https://sscv-framework.github.io/sscv-core/calculator/
+    about: Interactive SSCV calculator for testing and experimentation
