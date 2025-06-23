@@ -1,0 +1,217 @@
+name: 🔒 Security Issue
+description: Report a security vulnerability (for non-sensitive issues only)
+title: "[Security]: "
+labels: ["security", "needs-triage"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ⚠️ Security Issue Reporting
+        
+        **IMPORTANT**: If you've found a critical security vulnerability, please DO NOT report it here. 
+        
+        For sensitive security issues:
+        - Email the maintainers directly at [security@yourproject.com] 
+        - Use our security contact form at [link to secure contact method]
+        - Follow responsible disclosure practices
+        
+        This template is for **non-sensitive** security-related improvements, questions, or minor issues that don't pose immediate risk.
+
+  - type: checkboxes
+    id: security-confirmation
+    attributes:
+      label: Security Issue Type
+      description: Please confirm the type of security issue
+      options:
+        - label: This is NOT a critical vulnerability (safe to discuss publicly)
+          required: true
+        - label: This is a general security improvement suggestion
+        - label: This is a security-related question or clarification
+        - label: This is about security documentation or best practices
+        - label: This is about input validation or data handling
+
+  - type: dropdown
+    id: issue-category
+    attributes:
+      label: Security Category
+      description: What type of security issue is this?
+      options:
+        - Input Validation
+        - Data Sanitization
+        - Client-Side Security
+        - Documentation Security
+        - Security Best Practices
+        - Dependency Security
+        - Configuration Security
+        - Privacy Concern
+        - Other (non-critical)
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Issue Description
+      description: Describe the security concern or improvement suggestion
+      placeholder: |
+        Clearly describe the security issue...
+        
+        Examples of appropriate issues for this template:
+        - "Calculator doesn't validate CVSS input range, allowing negative values"
+        - "SSCV string parsing could be more robust against malformed input"
+        - "Documentation should mention browser security considerations"
+        - "Suggest adding Content Security Policy headers recommendation"
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-behavior
+    attributes:
+      label: Current Behavior
+      description: How does the system currently behave?
+      placeholder: |
+        Describe the current behavior that raises security concerns...
+        
+        Example: "The calculator accepts any string input for CVSS score and tries to parse it as a number, potentially allowing script injection in error messages."
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Secure Behavior
+      description: How should the system behave from a security perspective?
+      placeholder: |
+        Describe the secure behavior you'd expect...
+        
+        Example: "Input should be validated to only accept numbers between 0-10, with proper error handling for invalid input."
+
+  - type: textarea
+    id: impact-assessment
+    attributes:
+      label: Impact Assessment
+      description: What is the potential impact of this security issue?
+      placeholder: |
+        Assess the potential impact:
+        - Who could be affected?
+        - What could an attacker potentially do?
+        - How likely is exploitation?
+        - What are the consequences?
+        
+        Example: "Low impact - could potentially confuse users with invalid calculations, but no data exposure or system compromise possible."
+
+  - type: dropdown
+    id: risk-level
+    attributes:
+      label: Risk Level
+      description: How would you rate this security risk?
+      options:
+        - Low - Minimal risk, improvement suggestion
+        - Medium - Could cause issues but not critical
+        - High - Should be addressed promptly
+        - Critical - DO NOT USE THIS TEMPLATE (contact privately)
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction-steps
+    attributes:
+      label: Steps to Reproduce
+      description: How can someone reproduce this security concern?
+      placeholder: |
+        Provide steps to reproduce the issue:
+        1. Open the SSCV calculator
+        2. Enter malicious input: '<script>alert("test")</script>'
+        3. Observe how the system handles it
+        4. Note any security implications
+
+  - type: textarea
+    id: suggested-fix
+    attributes:
+      label: Suggested Fix
+      description: How would you recommend fixing this issue?
+      placeholder: |
+        Suggest how to address this security concern...
+        
+        Examples:
+        - "Add input validation using regex pattern /^[0-9]*\.?[0-9]+$/"
+        - "Implement HTML encoding for all user input before display"
+        - "Add CSP headers recommendation to documentation"
+        - "Use parseFloat() with range validation instead of eval()"
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment Details
+      description: Where did you observe this security concern?
+      value: |
+        - Browser: [e.g. Chrome 118, Firefox 119]
+        - OS: [e.g. Windows 11, macOS 14]
+        - SSCV Version: [e.g. latest from GitHub]
+        - Context: [e.g. testing calculator, reviewing code]
+
+  - type: checkboxes
+    id: security-testing
+    attributes:
+      label: Security Testing
+      description: What security testing have you done?
+      options:
+        - label: Tested with malformed input
+        - label: Reviewed for XSS vulnerabilities
+        - label: Checked for input validation issues
+        - label: Analyzed client-side code security
+        - label: Tested browser security features
+        - label: Reviewed documentation for security guidance
+
+  - type: textarea
+    id: references
+    attributes:
+      label: Security References
+      description: Any relevant security references or standards
+      placeholder: |
+        Link to relevant security resources:
+        - OWASP guidelines
+        - Security best practices
+        - Similar issues in other projects
+        - Security advisories
+        - Industry standards
+
+  - type: checkboxes
+    id: disclosure
+    attributes:
+      label: Responsible Disclosure
+      description: Confirm your understanding of responsible disclosure
+      options:
+        - label: I confirm this is not a critical vulnerability requiring private disclosure
+          required: true
+        - label: I understand that security issues may take longer to address
+          required: true
+        - label: I will not publicly exploit or share exploitation details
+          required: true
+        - label: I'm willing to work with maintainers on responsible disclosure timeline
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Security Context
+      description: Any other security-related information
+      placeholder: |
+        Additional context:
+        - Security research methodology used
+        - Tools used for security testing
+        - Related security considerations
+        - Compliance requirements (if applicable)
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      description: Please verify you've completed these steps
+      options:
+        - label: I have confirmed this is appropriate for public discussion
+          required: true
+        - label: I have assessed the risk level appropriately
+          required: true
+        - label: I have provided clear reproduction steps
+          required: true
+        - label: I understand this will be handled with appropriate priority based on risk level
+          required: true

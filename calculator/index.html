@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSCV Calculator - System Security Context Vector</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛡️ SSCV Calculator</h1>
+            <p>Transform CVSS scores into real-world risk with System Security Context Vector</p>
+        </header>
+
+        <div class="calculator-section">
+            <div class="cvss-input">
+                <label for="cvss-score">CVSS Base Score</label>
+                <input type="number" id="cvss-score" min="0" max="10" step="0.1" value="7.5" placeholder="Enter CVSS score (0-10)">
+            </div>
+
+            <div class="components-grid">
+                <div class="component-group">
+                    <h3>Operating System (OS)</h3>
+                    <select id="os" data-component="OS">
+                        <option value="X">Not Assessed (X)</option>
+                        <option value="L">Legacy (L)</option>
+                        <option value="O">Outdated (O)</option>
+                        <option value="C" selected>Current (C)</option>
+                        <option value="H">Hardened (H)</option>
+                    </select>
+                    <small>Currency and security of the operating system</small>
+                </div>
+
+                <div class="component-group">
+                    <h3>Network Exposure (NE)</h3>
+                    <select id="ne" data-component="NE">
+                        <option value="X">Not Assessed (X)</option>
+                        <option value="A">Air-gapped (A)</option>
+                        <option value="I" selected>Internal (I)</option>
+                        <option value="P">Partially External (P)</option>
+                        <option value="E">External (E)</option>
+                    </select>
+                    <small>Level of network exposure</small>
+                </div>
+
+                <div class="component-group">
+                    <h3>Access Control (AC)</h3>
+                    <select id="ac" data-component="AC">
+                        <option value="X">Not Assessed (X)</option>
+                        <option value="N">None (N)</option>
+                        <option value="B">Basic (B)</option>
+                        <option value="F" selected>Full (F)</option>
+                        <option value="Z">Zero-trust (Z)</option>
+                    </select>
+                    <small>Strength of access controls</small>
+                </div>
+
+                <div class="component-group">
+                    <h3>Endpoint Protection (EP)</h3>
+                    <select id="ep" data-component="EP">
+                        <option value="X">Not Assessed (X)</option>
+                        <option value="N">None (N)</option>
+                        <option value="B">Basic (B)</option>
+                        <option value="A" selected>Advanced (A)</option>
+                        <option value="M">Managed SOC (M)</option>
+                    </select>
+                    <small>Level of endpoint security</small>
+                </div>
+
+                <div class="component-group">
+                    <h3>Data Sensitivity (DL)</h3>
+                    <select id="dl" data-component="DL">
+                        <option value="X">Not Assessed (X)</option>
+                        <option value="P">Public (P)</option>
+                        <option value="I">Internal (I)</option>
+                        <option value="M" selected>Mixed (M)</option>
+                        <option value="C">Critical (C)</option>
+                    </select>
+                    <small>Sensitivity of data processed</small>
+                </div>
+
+                <div class="component-group">
+                    <h3>Business Criticality (BC)</h3>
+                    <select id="bc" data-component="BC">
+                        <option value="X">Not Assessed (X)</option>
+                        <option value="L">Low (L)</option>
+                        <option value="M">Medium (M)</option>
+                        <option value="H" selected>High (H)</option>
+                        <option value="C">Critical (C)</option>
+                    </select>
+                    <small>Criticality to business operations</small>
+                </div>
+
+                <div class="component-group">
+                    <h3>Patch Status (PS)</h3>
+                    <select id="ps" data-component="PS">
+                        <option value="X">Not Assessed (X)</option>
+                        <option value="C" selected>Current (C)</option>
+                        <option value="D">Delayed (D)</option>
+                        <option value="B">Behind (B)</option>
+                        <option value="U">Unpatched (U)</option>
+                    </select>
+                    <small>Current patching status</small>
+                </div>
+
+                <div class="component-group">
+                    <h3>Update Mechanism (UM)</h3>
+                    <select id="um" data-component="UM">
+                        <option value="X">Not Assessed (X)</option>
+                        <option value="A" selected>Automatic (A)</option>
+                        <option value="S">Scheduled (S)</option>
+                        <option value="M">Manual (M)</option>
+                        <option value="N">None (N)</option>
+                    </select>
+                    <small>How updates are applied</small>
+                </div>
+
+                <div class="component-group">
+                    <h3>Supply Chain (SC)</h3>
+                    <select id="sc" data-component="SC">
+                        <option value="X" selected>Not Assessed (X)</option>
+                        <option value="V">Verified (V)</option>
+                        <option value="M">Managed (M)</option>
+                        <option value="U">Unmanaged (U)</option>
+                        <option value="K">Known Issues (K)</option>
+                    </select>
+                    <small>Supply chain security status</small>
+                </div>
+            </div>
+
+            <div class="results-section">
+                <div class="sscv-string">
+                    <h3>SSCV String</h3>
+                    <div id="sscv-output" class="sscv-display">SSCV:1.0/OS:C/NE:I/AC:F/EP:A/DL:M/BC:H/PS:C/UM:A/SC:X</div>
+                    <button id="copy-sscv" class="copy-btn">Copy to Clipboard</button>
+                </div>
+
+                <div class="risk-score">
+                    <h3>Contextual Risk Score</h3>
+                    <div class="score-display">
+                        <span id="crs-score" class="score-value">5.3</span>
+                        <span id="crs-severity" class="severity medium">Medium</span>
+                    </div>
+                    <div class="score-details">
+                        <div>Context Multiplier: <span id="context-multiplier">0.95</span></div>
+                        <div>Exposure Factor: <span id="exposure-factor">0.74</span></div>
+                        <div>Formula Used: <span id="formula-used">minimum_threshold</span></div>
+                    </div>
+                </div>
+
+                <div class="comparison">
+                    <h3>Risk Comparison</h3>
+                    <div class="comparison-bars">
+                        <div class="bar-container">
+                            <label>CVSS Base Score</label>
+                            <div class="bar cvss-bar">
+                                <div id="cvss-bar-fill" class="bar-fill" style="width: 75%"></div>
+                                <span id="cvss-display">7.5</span>
+                            </div>
+                        </div>
+                        <div class="bar-container">
+                            <label>Contextual Risk Score</label>
+                            <div class="bar crs-bar">
+                                <div id="crs-bar-fill" class="bar-fill" style="width: 53%"></div>
+                                <span id="crs-display">5.3</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="warnings" class="warnings"></div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Learn more about SSCV: <a href="../SPECIFICATION.md">Full Specification</a> | <a href="../README.md">Documentation</a></p>
+        </footer>
+    </div>
+
+    <script src="calculator.js"></script>
+</body>
+</html>

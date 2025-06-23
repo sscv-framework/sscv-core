@@ -1,0 +1,208 @@
+name: ✨ Feature Request
+description: Suggest a new feature or enhancement for SSCV
+title: "[Feature]: "
+labels: ["enhancement", "needs-triage"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a new feature! Please provide as much detail as possible to help us understand and evaluate your request.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: What problem does this feature solve? What pain point are you experiencing?
+      placeholder: |
+        Describe the problem or limitation you're facing...
+        
+        Example: "As a security analyst, I need to compare multiple SSCV configurations side-by-side, but the current calculator only allows one calculation at a time."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the feature you'd like to see implemented
+      placeholder: |
+        Describe your proposed solution...
+        
+        Example: "Add a comparison mode that allows entering 2-3 different SSCV configurations and displays their results in a table format."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: feature-category
+    attributes:
+      label: Feature Category
+      description: What type of feature is this?
+      options:
+        - Calculator Enhancement
+        - New Calculation Feature
+        - UI/UX Improvement
+        - Export/Import Functionality
+        - Integration/API
+        - Documentation
+        - Accessibility
+        - Performance
+        - Mobile/Responsive
+        - Other
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: feature-scope
+    attributes:
+      label: Feature Scope
+      description: Which areas would this feature impact?
+      options:
+        - label: Web Calculator Interface
+        - label: Calculation Engine
+        - label: SSCV String Generation/Parsing
+        - label: Risk Visualization
+        - label: Data Export/Import
+        - label: Documentation/Examples
+        - label: Mobile Experience
+        - label: Accessibility Features
+
+  - type: textarea
+    id: user-stories
+    attributes:
+      label: User Stories
+      description: Describe how different users would benefit from this feature
+      placeholder: |
+        Example user stories:
+        
+        **As a security analyst, I want to...**
+        - Save my frequently used SSCV configurations so I can reuse them quickly
+        
+        **As a CISO, I want to...**
+        - Export calculation results to PDF for executive reporting
+        
+        **As a vulnerability manager, I want to...**
+        - Batch process multiple CVE/SSCV combinations to prioritize patching
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: What would make this feature complete and successful?
+      placeholder: |
+        Define what "done" looks like:
+        
+        - [ ] User can save SSCV configurations with custom names
+        - [ ] Saved configurations appear in a dropdown menu
+        - [ ] User can load, edit, and delete saved configurations
+        - [ ] Configurations persist in browser local storage
+        - [ ] Maximum of 10 saved configurations to prevent storage bloat
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternative Solutions
+      description: What other approaches have you considered?
+      placeholder: |
+        Describe alternative approaches you've thought about...
+        
+        Example: "Instead of saving configurations, we could provide URL parameters that encode the SSCV settings, allowing users to bookmark specific configurations."
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority Level
+      description: How important is this feature to you?
+      options:
+        - Low - Nice to have, but not urgent
+        - Medium - Would significantly improve my workflow
+        - High - Critical for my use case
+        - Critical - Blocking my adoption of SSCV
+    validations:
+      required: true
+
+  - type: dropdown
+    id: complexity
+    attributes:
+      label: Estimated Complexity
+      description: How complex do you think this feature would be to implement?
+      options:
+        - Simple - Small UI change or configuration option
+        - Medium - New UI component or calculation feature
+        - Complex - Major feature requiring significant development
+        - Unknown - Not sure about the technical complexity
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Detailed Use Case
+      description: Walk us through a specific scenario where you'd use this feature
+      placeholder: |
+        Provide a detailed example of how you would use this feature:
+        
+        **Scenario**: Monthly vulnerability review meeting
+        
+        1. I open the SSCV calculator and select my "Production Web Servers" saved configuration
+        2. I enter the CVSS score for a new vulnerability (8.5)
+        3. The calculator shows CRS of 6.2 (High), which triggers our 48-hour SLA
+        4. I export the results to PDF and attach to our vulnerability tracking ticket
+        5. During the meeting, I switch to my "Internal Development" configuration to show the lower risk (CRS 3.1) for the same vulnerability on dev systems
+
+  - type: textarea
+    id: mockups
+    attributes:
+      label: Mockups or Examples
+      description: Any visual examples, mockups, or references that help illustrate your idea
+      placeholder: |
+        You can:
+        - Upload image mockups or sketches
+        - Link to similar features in other tools
+        - Describe the UI/interaction in detail
+        - Reference existing patterns from other websites/apps
+
+  - type: checkboxes
+    id: implementation-offer
+    attributes:
+      label: Implementation
+      description: Are you interested in helping implement this feature?
+      options:
+        - label: I'd like to contribute code for this feature
+        - label: I can help with testing and feedback
+        - label: I can provide detailed requirements and use cases
+        - label: I can help with documentation
+        - label: I'm only requesting the feature (no implementation help)
+
+  - type: textarea
+    id: timeline
+    attributes:
+      label: Timeline
+      description: When would you need this feature?
+      placeholder: |
+        Example: "We're planning to roll out SSCV organization-wide in Q2 2024, so having this feature by March would be ideal."
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other relevant information about this feature request
+      placeholder: |
+        - Similar features in other tools you've used
+        - Specific technical requirements or constraints
+        - Integration needs with other systems
+        - Regulatory or compliance drivers
+        - Budget considerations
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      description: Please verify you've completed these steps
+      options:
+        - label: I have searched existing issues to ensure this hasn't been requested before
+          required: true
+        - label: I have provided a clear problem statement and proposed solution
+          required: true
+        - label: I have considered alternative approaches
+          required: true
+        - label: I understand this is a suggestion and implementation depends on maintainer priorities
+          required: true
