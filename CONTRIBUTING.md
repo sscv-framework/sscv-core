@@ -2,19 +2,19 @@
 
 Thank you for your interest in contributing to the System Security Context Vector (SSCV) framework! This document outlines how you can help improve SSCV.
 
-## 🤝 How to Contribute
+## How to Contribute
 
 We welcome contributions in many forms:
 
-- 🐛 **Bug Reports**: Found an issue? Let us know!
-- 💡 **Feature Requests**: Have an idea for improvement?
-- 📝 **Documentation**: Help improve our docs
-- 🔧 **Code Contributions**: Submit bug fixes or new features
-- 🌍 **Translations**: Help make SSCV accessible globally
-- 📊 **Use Cases**: Share your SSCV implementation stories
-- 🧮 **Calculator Improvements**: Enhance the web calculator
+- **Bug Reports**: Found an issue? Let us know!
+- **Feature Requests**: Have an idea for improvement?
+- **Documentation**: Help improve our docs
+- **Code Contributions**: Submit bug fixes or new features
+- **Translations**: Help make SSCV accessible globally
+- **Use Cases**: Share your SSCV implementation stories
+- **Calculator Improvements**: Enhance the web calculator
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -39,7 +39,7 @@ We welcome contributions in many forms:
    - Read `SPECIFICATION.md` to understand the framework
    - Check `examples/` for implementation patterns
 
-## 📝 Contribution Guidelines
+## Contribution Guidelines
 
 ### Bug Reports
 
@@ -112,7 +112,7 @@ Ideas for calculator improvements:
 - **Validation**: Better error messages, input validation
 - **Export**: PDF reports, CSV exports, integration options
 
-## 🏗️ Code Style Guidelines
+## Code Style Guidelines
 
 ### HTML
 - Use semantic HTML elements
@@ -149,7 +149,7 @@ function calculateCRS(cvssBase, components) {
 }
 ```
 
-## 🧪 Testing
+## Testing
 
 ### Manual Testing
 
@@ -180,7 +180,7 @@ For future development, we plan to add:
 - Accessibility testing
 - Performance benchmarks
 
-## 📋 Specification Changes
+## Specification Changes
 
 Changes to the SSCV specification require special consideration:
 
@@ -200,14 +200,14 @@ For major changes:
 3. Consider backward compatibility
 4. Update all related documentation
 
-## 🌟 Recognition
+## Recognition
 
 Contributors will be recognized in:
 - README.md acknowledgments
 - Release notes for significant contributions
 - Special contributor badges (future)
 
-## 📞 Getting Help
+## Getting Help
 
 Need help contributing?
 
@@ -215,7 +215,7 @@ Need help contributing?
 - **Discussions**: Use GitHub discussions for general questions
 - **Email**: Contact maintainers directly for private concerns
 
-## 🎯 Contribution Ideas
+## Contribution Ideas
 
 Looking for ways to contribute? Here are some ideas:
 
@@ -243,7 +243,7 @@ Looking for ways to contribute? Here are some ideas:
 - Comparison studies with other frameworks
 - User experience research
 
-## 🔄 Review Process
+## Review Process
 
 1. **Initial Review**: Maintainers review for basic requirements
 2. **Technical Review**: Detailed code/content review
@@ -253,7 +253,7 @@ Looking for ways to contribute? Here are some ideas:
 
 Typical review time: 3-7 days for small changes, 1-2 weeks for larger contributions.
 
-## 📜 Code of Conduct
+## Code of Conduct
 
 We are committed to providing a welcoming and inclusive environment. Please:
 
@@ -262,7 +262,7 @@ We are committed to providing a welcoming and inclusive environment. Please:
 - Show empathy towards other community members
 - Accept constructive criticism gracefully
 
-## 🙏 Thank You
+## Thank You
 
 Every contribution, no matter how small, helps make SSCV better for everyone. We appreciate your time and effort in improving this framework!
 

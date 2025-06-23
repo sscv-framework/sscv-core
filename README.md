@@ -8,18 +8,18 @@
 
 SSCV is an open framework that adds critical context to vulnerability scoring. While CVSS tells you how bad a vulnerability *could* be, SSCV tells you how bad it *actually is* for your specific systems.
 
-### 🎯 Why SSCV?
+### Why SSCV?
 
 A CVSS 10.0 on an air-gapped, fully-patched system with no sensitive data is very different from a CVSS 6.0 on an internet-facing, unpatched server processing credit cards. SSCV captures this context.
 
 **Key Features:**
-- 📊 Contextual risk scoring that reflects your actual security posture
-- 🔧 Flexible adoption - start with what you can assess today
-- 🛡️ Never reduces risk to zero (because perfect security doesn't exist)
-- 📈 Grows with your security maturity
-- 🧮 Simple, transparent calculations
+- Contextual risk scoring that reflects your actual security posture
+- Flexible adoption - start with what you can assess today
+- Never reduces risk to zero (because perfect security doesn't exist)
+- Grows with your security maturity
+- Simple, transparent calculations
 
-### 🚀 Quick Start
+### Quick Start
 
 ```
 SSCV:1.0/OS:C/NE:I/AC:F/EP:A/DL:M/BC:H/PS:C/UM:A/SC:X
@@ -32,11 +32,11 @@ This vector describes a current OS, internal network system with full access con
 Contextual Risk Score = CVSS Score × SSCV Context
 ```
 
-### 🛠️ Interactive Calculator
+### Interactive Calculator
 
 Try the [interactive calculator](./calculator/index.html) to experiment with SSCV scores and see real-time contextual risk calculations.
 
-### 📊 Component Overview
+### Component Overview
 
 SSCV evaluates 9 security dimensions:
 
@@ -54,7 +54,7 @@ SSCV evaluates 9 security dimensions:
 
 Use 'X' for any component you're not ready to assess - SSCV automatically adjusts calculations.
 
-### 🎓 Example
+### Example
 
 **Scenario**: Apache Struts vulnerability (CVSS 10.0) on two different systems
 
@@ -72,7 +72,7 @@ Contextual Risk Score: 9.2 (Critical)
 
 Same vulnerability, different real-world risk.
 
-### 🤝 Use Cases
+### Use Cases
 
 - **Vulnerability Prioritization**: Sort by actual risk, not theoretical severity
 - **Compliance Reporting**: Document risk-based patching decisions
@@ -82,7 +82,7 @@ Same vulnerability, different real-world risk.
 
 See [examples/](./examples/) for detailed use cases and integration patterns.
 
-### 🙋 FAQ
+### FAQ
 
 **Q: Do I need to assess all components?**  
 A: No! Start with what you know. Use 'X' for components you can't assess yet.
@@ -93,18 +93,18 @@ A: Because perfect security doesn't exist. Even the best defenses can be bypasse
 **Q: How often should I update SSCV scores?**  
 A: Quarterly for most systems, or after significant changes.
 
-### 🤗 Contributing
+### Contributing
 
 We welcome contributions! Whether it's:
-- 🐛 Bug reports
-- 💡 Feature ideas  
-- 📝 Documentation improvements
-- 🔧 Code contributions
-- 🌍 Translations
+- Bug reports
+- Feature ideas  
+- Documentation improvements
+- Code contributions
+- Translations
 
 Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-### 📜 License
+### License
 
 SSCV is released under the [Apache License 2.0](LICENSE). Use it freely in commercial and open source projects.
 
@@ -112,4 +112,4 @@ SSCV is released under the [Apache License 2.0](LICENSE). Use it freely in comme
 
 **Remember**: Security is a journey, not a destination. SSCV helps you prioritize that journey based on your actual risk, not theoretical vulnerabilities.
 
-Start small, iterate often, and improve continuously. 🚀
+Start small, iterate often, and improve continuously.

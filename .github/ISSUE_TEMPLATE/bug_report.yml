@@ -1,4 +1,4 @@
-name: 🐛 Bug Report
+name: Bug Report
 description: Report a bug or issue with SSCV
 title: "[Bug]: "
 labels: ["bug", "needs-triage"]

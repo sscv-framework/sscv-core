@@ -1,26 +1,26 @@
 # Pull Request
 
-## 📝 Description
+## Description
 
 Please provide a clear and concise description of what this PR accomplishes.
 
 ### Type of Change
-- [ ] 🐛 Bug fix (non-breaking change which fixes an issue)
-- [ ] ✨ New feature (non-breaking change which adds functionality)
-- [ ] 💥 Breaking change (fix or feature that would cause existing functionality to not work as expected)
-- [ ] 📚 Documentation update
-- [ ] 🎨 Style/UI improvement
-- [ ] ♻️ Code refactoring
-- [ ] 🧪 Test improvements
-- [ ] 🔧 Configuration changes
+- [ ] Bug fix (non-breaking change which fixes an issue)
+- [ ] New feature (non-breaking change which adds functionality)
+- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
+- [ ] Documentation update
+- [ ] Style/UI improvement
+- [ ] Code refactoring
+- [ ] Test improvements
+- [ ] Configuration changes
 
-## 🔗 Related Issues
+## Related Issues
 
 Closes #(issue number)
 Fixes #(issue number)
 Relates to #(issue number)
 
-## 🧪 Testing
+## Testing
 
 ### Manual Testing
 - [ ] Calculator functionality tested
@@ -38,7 +38,7 @@ Please describe the test cases you've run and their results:
 - SSCV String: `SSCV:1.0/OS:X/NE:X/AC:X/EP:X/DL:X/BC:X/PS:X/UM:X/SC:X`
 - Expected CRS: [X.X]
 - Actual CRS: [X.X]
-- ✅ Pass / ❌ Fail
+- Pass / Fail
 
 **Test Case 2**: [Description]
 - [Same format as above]
@@ -50,7 +50,7 @@ Please describe the test cases you've run and their results:
 - [ ] Invalid CVSS values (handled gracefully)
 - [ ] Empty/null inputs (handled gracefully)
 
-## 📋 Checklist
+## Checklist
 
 ### Code Quality
 - [ ] Code follows existing style guidelines
@@ -72,7 +72,7 @@ Please describe the test cases you've run and their results:
 - [ ] Severity mapping is correct (Low/Medium/High/Critical)
 - [ ] SSCV string format is valid
 
-## 🖼️ Screenshots (if applicable)
+## Screenshots (if applicable)
 
 Please add screenshots to help explain your changes, especially for UI improvements.
 
@@ -82,7 +82,7 @@ Please add screenshots to help explain your changes, especially for UI improveme
 **After:**
 [Screenshot or description]
 
-## 🔍 Additional Context
+## Additional Context
 
 Add any other context about the pull request here. This might include:
 - Performance considerations
@@ -90,7 +90,7 @@ Add any other context about the pull request here. This might include:
 - Backward compatibility notes
 - Future improvement suggestions
 
-## 📊 Impact Assessment
+## Impact Assessment
 
 ### Files Changed
 - [ ] Core calculation logic (`calculator.js`)
@@ -115,14 +115,14 @@ Add any other context about the pull request here. This might include:
 
 ---
 
-## 🔒 Security Considerations
+## Security Considerations
 
 - [ ] No sensitive data exposed
 - [ ] Input validation implemented
 - [ ] No security vulnerabilities introduced
 - [ ] External dependencies reviewed (if any)
 
-## 📈 Performance Considerations
+## Performance Considerations
 
 - [ ] No performance regressions
 - [ ] Tested with large datasets (if applicable)
@@ -134,4 +134,4 @@ Add any other context about the pull request here. This might include:
 **Note for Reviewers:**
 [Any specific areas you'd like reviewers to focus on]
 
-**Thank you for contributing to SSCV! 🚀**
+**Thank you for contributing to SSCV!**

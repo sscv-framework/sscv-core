@@ -1,4 +1,4 @@
-name: 🔒 Security Issue
+name: Security Issue
 description: Report a security vulnerability (for non-sensitive issues only)
 title: "[Security]: "
 labels: ["security", "needs-triage"]
@@ -7,7 +7,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        ## ⚠️ Security Issue Reporting
+        ## Security Issue Reporting
         
         **IMPORTANT**: If you've found a critical security vulnerability, please DO NOT report it here. 
         
