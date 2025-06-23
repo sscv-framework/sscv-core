@@ -334,11 +334,35 @@ Organizations implementing SSCV should remember it's a tool for prioritization, 
 
 ## License
 
-[To be added for open source release]
+This project is licensed under the Apache License 2.0.
+
+Copyright 2025 Invenity Labs, LLC.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at:
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 
 ## Contributing
 
-[To be added for open source release]
+We welcome contributions to the SSCV framework! Whether you're interested in:
+
+- Reporting bugs or requesting features
+- Improving documentation or translations
+- Enhancing the web calculator
+- Sharing implementation use cases
+- Contributing code improvements
+
+Please see our [CONTRIBUTING.md](CONTRIBUTING.md) file for detailed guidelines on how to contribute, including:
+
+- Development setup instructions
+- Code style guidelines
+- Testing requirements
+- Submission process
+- Recognition for contributors
+
+For questions or discussions, please open an issue or use GitHub discussions. We're here to help you contribute successfully to SSCV!
 
 ## Version History
 
