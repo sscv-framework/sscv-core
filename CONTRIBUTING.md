@@ -26,7 +26,7 @@ We welcome contributions in many forms:
 
 1. **Fork the Repository**
    ```bash
-   git clone https://github.com/yourusername/sscv-core.git
+   git clone https://github.com/sscv-framework/sscv-core.git
    cd sscv-core
    ```
 
