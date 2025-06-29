@@ -10,11 +10,11 @@ Security teams receive hundreds of vulnerability alerts daily, most prioritized 
 ### SSCV Solution
 **Implementation**:
 ```
-Development System: SSCV:1.0/OS:C/NE:A/AC:F/EP:A/DL:I/BC:L/PS:C/UM:A/SC:X
+Development System: SSCV:1.0/OS:C/NE:A/AC:F/EP:A/DL:I/BC:L/PS:C/UM:A/SC:X/ST:N/PH:B/AV:B
 CVSS 9.0 → CRS 1.8 (Low Priority)
 
-Production Server: SSCV:1.0/OS:C/NE:E/AC:F/EP:A/DL:C/BC:C/PS:C/UM:A/SC:X  
-CVSS 6.0 → CRS 6.7 (High Priority)
+Production Server: SSCV:1.0/OS:C/NE:E/AC:F/EP:A/DL:C/BC:C/PS:C/UM:A/SC:M/ST:N/PH:H/AV:H  
+CVSS 6.0 → CRS 7.2 (High Priority)
 ```
 
 **Benefits**:
@@ -35,8 +35,8 @@ Auditors and compliance frameworks often require evidence of risk-based decision
 ```
 System: Customer Database Server
 CVSS Score: 8.5 (High)
-SSCV: SSCV:1.0/OS:C/NE:I/AC:Z/EP:M/DL:C/BC:C/PS:C/UM:A/SC:V
-Contextual Risk Score: 4.2 (Medium)
+SSCV: SSCV:1.0/OS:C/NE:I/AC:Z/EP:M/DL:C/BC:C/PS:C/UM:A/SC:V/ST:N/PH:H/AV:S
+Contextual Risk Score: 3.8 (Low)
 
 Risk Acceptance Justification:
 - Zero-trust access controls implemented
@@ -44,6 +44,8 @@ Risk Acceptance Justification:
 - Current patches applied
 - Internal network segmentation
 - Verified supply chain components
+- High physical security controls
+- Standard availability requirements allow maintenance windows
 ```
 
 **Compliance Benefits**:
@@ -247,7 +249,46 @@ CVSS 6.5 → CRS 3.5 (Medium - Verified Supply Chain)
 
 ---
 
-## 10. Incident Response & Forensics
+## 10. Industrial Control Systems & Critical Infrastructure
+
+### Traditional Challenge
+Industrial control systems (ICS), SCADA systems, and critical infrastructure face unique challenges where traditional cybersecurity measures can conflict with operational safety requirements, and standard CVSS scoring doesn't account for physical security, safety constraints, or availability requirements.
+
+### SSCV Solution
+**Industrial System Assessment**:
+```
+Legacy Manufacturing System:
+SSCV:1.0/OS:L/NE:A/AC:O/EP:N/DL:I/BC:C/PS:U/UM:N/SC:U/ST:C/PH:H/AV:C
+CVSS 8.5 → CRS 3.2 (Low)
+Rationale: Air-gapped + physical security compensate for poor software security
+
+Modern Water Treatment Plant:
+SSCV:1.0/OS:C/NE:I/AC:F/EP:A/DL:C/BC:C/PS:C/UM:S/SC:M/ST:M/PH:H/AV:H
+CVSS 7.0 → CRS 4.8 (Medium)
+Rationale: Good security balanced with operational constraints
+
+Power Grid Control System:
+SSCV:1.0/OS:H/NE:I/AC:F/EP:M/DL:C/BC:C/PS:C/UM:S/SC:V/ST:C/PH:F/AV:C
+CVSS 6.8 → CRS 2.9 (Low)
+Rationale: Fortress-level security with verified supply chain
+```
+
+**Industrial Benefits**:
+- Acknowledges safety-security trade-offs in risk calculations
+- Recognizes physical security as a compensating control
+- Accounts for availability constraints limiting patch windows
+- Supports risk-based cybersecurity frameworks (NIST, IEC 62443)
+- Enables informed decisions about operational technology security
+
+**Implementation Considerations**:
+- Use AC:O (Operational) for systems requiring no authentication for safety
+- Apply ST:C (Critical Safety) when security controls could impact safety
+- Leverage PH (Physical Security) as a key control for isolated systems
+- Set AV:C (Critical Availability) for systems with strict uptime requirements
+
+---
+
+## 11. Incident Response & Forensics
 
 ### Traditional Challenge
 During security incidents, teams struggle to prioritize affected systems and assess actual impact based on theoretical vulnerability scores.
@@ -276,26 +317,29 @@ Investigation Priority: A → C → B
 ### Phase 1: Foundation (Months 1-2)
 1. Deploy SSCV calculator
 2. Train security team on framework
-3. Assess 20% of critical systems
-4. Establish baseline metrics
+3. Start with core components (OS, NE, AC, EP, DL, BC, PS, UM)
+4. Assess 20% of critical systems
+5. Establish baseline metrics
 
 ### Phase 2: Integration (Months 3-6)
 1. Integrate with vulnerability scanners
-2. Update risk management processes
-3. Expand to 60% of systems
-4. Develop executive reporting
+2. Add supply chain security assessment (SC component)
+3. Update risk management processes
+4. Expand to 60% of systems
+5. Develop executive reporting
 
-### Phase 3: Optimization (Months 6-12)
-1. Automate SSCV assessment
-2. Integration with SIEM/SOAR
-3. Complete organizational coverage
-4. Benchmark and improve
+### Phase 3: Advanced Assessment (Months 6-12)
+1. Implement operational components (ST, PH, AV) for applicable systems
+2. Assess industrial control systems and critical infrastructure
+3. Automate SSCV assessment
+4. Integration with SIEM/SOAR
+5. Complete organizational coverage
 
 ### Phase 4: Maturity (Year 2+)
-1. Real-time risk monitoring
+1. Real-time risk monitoring with all 12 components
 2. Predictive risk modeling
-3. Industry collaboration
-4. Framework evolution
+3. Industry collaboration and benchmarking
+4. Framework evolution and customization
 
 ---
 

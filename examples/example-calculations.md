@@ -1,6 +1,6 @@
 # SSCV Example Calculations
 
-This document provides detailed examples of SSCV calculations for different system configurations.
+This document provides detailed examples of SSCV calculations for different system configurations, including the latest SSCV v1.0 components and calculation methods.
 
 ## Example 1: Internet-Facing Web Server
 
@@ -15,30 +15,37 @@ This document provides detailed examples of SSCV calculations for different syst
 - High business criticality
 - Current patch status
 - Automatic updates enabled
-- Supply chain not assessed
+- Managed supply chain
+- No safety requirements
+- High physical security
+- High availability requirements
 
 **SSCV String**:
 ```
-SSCV:1.0/OS:C/NE:E/AC:F/EP:A/DL:M/BC:H/PS:C/UM:A/SC:X
+SSCV:1.0/OS:C/NE:E/AC:F/EP:A/DL:M/BC:H/PS:C/UM:A/SC:M/ST:N/PH:H/AV:H
 ```
 
 **Calculation Steps**:
 
-1. **Context Multiplier**:
-   - Components: OS(1.0) + AC(1.0) + EP(1.0) + PS(1.0) + UM(1.0) + SC(not assessed)
-   - Average: (1.0 + 1.0 + 1.0 + 1.0 + 1.0) / 5 = 1.0
+1. **Security Average**:
+   - Components: OS(1.0) + AC(1.0) + EP(1.0) + PS(1.0) + UM(1.0) + SC(1.5)
+   - Average: (1.0 + 1.0 + 1.0 + 1.0 + 1.0 + 1.5) / 6 = 1.08
 
 2. **Exposure Factor**:
    - NE(3.0) × DL(2.5) × BC(2.5) = 18.75
    - Normalized: 18.75 / 27.0 = 0.694
 
-3. **Combined Factor**:
-   - 1.0 × 0.694 = 0.694 (≤ 1, use minimum threshold formula)
+3. **Operational Average**:
+   - Components: ST(1.0) + PH(1.0) + AV(1.5)
+   - Average: (1.0 + 1.0 + 1.5) / 3 = 1.17
 
-4. **Contextual Risk Score**:
-   - Adjusted: 10.0 × 0.7 × 0.694 = 4.86
+4. **Combined Factor**:
+   - 1.08 × 0.694 × 1.17 = 0.877 (≤ 1, use minimum threshold formula)
+
+5. **Contextual Risk Score**:
+   - Adjusted: 10.0 × 0.7 × 0.877 = 6.14
    - Minimum: 10.0 × 0.2 = 2.0
-   - CRS: max(4.86, 2.0) = **4.9** (Medium)
+   - CRS: max(6.14, 2.0) = **6.14** (Medium)
 
 **Result**: Despite the critical CVSS score, the contextual risk is Medium due to good security controls, though external exposure keeps it elevated.
 
@@ -61,12 +68,12 @@ SSCV:1.0/OS:C/NE:E/AC:F/EP:A/DL:M/BC:H/PS:C/UM:A/SC:X
 
 **SSCV String**:
 ```
-SSCV:1.0/OS:L/NE:I/AC:B/EP:B/DL:C/BC:C/PS:B/UM:M/SC:U
+SSCV:1.0/OS:L/NE:I/AC:B/EP:B/DL:C/BC:C/PS:B/UM:M/SC:U/ST:N/PH:B/AV:H
 ```
 
 **Calculation Steps**:
 
-1. **Context Multiplier**:
+1. **Security Average**:
    - Components: OS(3.0) + AC(2.0) + EP(2.0) + PS(2.5) + UM(2.0) + SC(2.5)
    - Average: (3.0 + 2.0 + 2.0 + 2.5 + 2.0 + 2.5) / 6 = 2.33
 
@@ -74,13 +81,16 @@ SSCV:1.0/OS:L/NE:I/AC:B/EP:B/DL:C/BC:C/PS:B/UM:M/SC:U
    - NE(1.0) × DL(3.0) × BC(3.0) = 9.0
    - Normalized: 9.0 / 27.0 = 0.333
 
-3. **Combined Factor**:
-   - 2.33 × 0.333 = 0.777 (≤ 1, use minimum threshold formula)
+3. **Operational Average**:
+   - Components: ST(1.0) + PH(2.0) + AV(1.5)
+   - Average: (1.0 + 2.0 + 1.5) / 3 = 1.5
 
-4. **Contextual Risk Score**:
-   - Adjusted: 10.0 × 0.7 × 0.777 = 5.44
-   - Minimum: 10.0 × 0.2 = 2.0
-   - CRS: max(5.44, 2.0) = **5.4** (Medium)
+4. **Combined Factor**:
+   - 2.33 × 0.333 × 1.5 = 1.16 (> 1, use amplification formula)
+
+5. **Contextual Risk Score**:
+   - Raw Score: 10.0 × 1.16 = 11.6
+   - CRS: min(11.6, 10.0 × 2) = **10.0** (Critical)
 
 **Result**: Despite poor security controls, internal network location limits exposure.
 
@@ -103,12 +113,12 @@ SSCV:1.0/OS:L/NE:I/AC:B/EP:B/DL:C/BC:C/PS:B/UM:M/SC:U
 
 **SSCV String**:
 ```
-SSCV:1.0/OS:H/NE:A/AC:Z/EP:M/DL:P/BC:L/PS:C/UM:A/SC:V
+SSCV:1.0/OS:H/NE:A/AC:Z/EP:M/DL:P/BC:L/PS:C/UM:A/SC:V/ST:N/PH:F/AV:B
 ```
 
 **Calculation Steps**:
 
-1. **Context Multiplier**:
+1. **Security Average**:
    - Components: OS(0.8) + AC(0.7) + EP(0.8) + PS(1.0) + UM(1.0) + SC(0.8)
    - Average: (0.8 + 0.7 + 0.8 + 1.0 + 1.0 + 0.8) / 6 = 0.85
 
@@ -116,13 +126,17 @@ SSCV:1.0/OS:H/NE:A/AC:Z/EP:M/DL:P/BC:L/PS:C/UM:A/SC:V
    - NE(0.3) × DL(0.6) × BC(0.6) = 0.108
    - Normalized: 0.108 / 27.0 = 0.004
 
-3. **Combined Factor**:
-   - 0.85 × 0.004 = 0.0034 (≤ 1, use minimum threshold formula)
+3. **Operational Average**:
+   - Components: ST(1.0) + PH(0.7) + AV(1.0)
+   - Average: (1.0 + 0.7 + 1.0) / 3 = 0.9
 
-4. **Contextual Risk Score**:
-   - Adjusted: 10.0 × 0.7 × 0.0034 = 0.024
+4. **Combined Factor**:
+   - 0.85 × 0.004 × 0.9 = 0.003 (≤ 1, use minimum threshold formula)
+
+5. **Contextual Risk Score**:
+   - Adjusted: 10.0 × 0.7 × 0.003 = 0.021
    - Minimum: 10.0 × 0.2 = 2.0
-   - CRS: max(0.024, 2.0) = **2.0** (Low)
+   - CRS: max(0.021, 2.0) = **2.0** (Low)
 
 **Result**: Excellent security controls reduce risk to the minimum threshold.
 
@@ -145,12 +159,12 @@ SSCV:1.0/OS:H/NE:A/AC:Z/EP:M/DL:P/BC:L/PS:C/UM:A/SC:V
 
 **SSCV String**:
 ```
-SSCV:1.0/OS:L/NE:E/AC:N/EP:N/DL:C/BC:C/PS:U/UM:N/SC:K
+SSCV:1.0/OS:L/NE:E/AC:N/EP:N/DL:C/BC:C/PS:U/UM:N/SC:K/ST:N/PH:N/AV:C
 ```
 
 **Calculation Steps**:
 
-1. **Context Multiplier**:
+1. **Security Average**:
    - Components: OS(3.0) + AC(3.0) + EP(3.0) + PS(3.0) + UM(3.0) + SC(3.0)
    - Average: (3.0 + 3.0 + 3.0 + 3.0 + 3.0 + 3.0) / 6 = 3.0
 
@@ -158,12 +172,16 @@ SSCV:1.0/OS:L/NE:E/AC:N/EP:N/DL:C/BC:C/PS:U/UM:N/SC:K
    - NE(3.0) × DL(3.0) × BC(3.0) = 27.0
    - Normalized: 27.0 / 27.0 = 1.0
 
-3. **Combined Factor**:
-   - 3.0 × 1.0 = 3.0 (> 1, use amplification formula)
+3. **Operational Average**:
+   - Components: ST(1.0) + PH(3.0) + AV(2.0)
+   - Average: (1.0 + 3.0 + 2.0) / 3 = 2.0
 
-4. **Contextual Risk Score**:
-   - Amplified: min(10.0 × 3.0, 10.0 × 2) = 20.0
-   - Capped: min(20.0, 10.0) = **10.0** (Critical)
+4. **Combined Factor**:
+   - 3.0 × 1.0 × 2.0 = 6.0 (> 1, use amplification formula)
+
+5. **Contextual Risk Score**:
+   - Raw Score: 10.0 × 6.0 = 60.0
+   - CRS: min(60.0, 10.0 × 2) = **10.0** (Critical)
 
 **Result**: Multiple risk factors amplify the score to maximum severity.
 
@@ -186,23 +204,27 @@ SSCV:1.0/OS:L/NE:E/AC:N/EP:N/DL:C/BC:C/PS:U/UM:N/SC:K
 
 **SSCV String**:
 ```
-SSCV:1.0/OS:X/NE:I/AC:X/EP:X/DL:M/BC:H/PS:X/UM:X/SC:X
+SSCV:1.0/OS:X/NE:I/AC:X/EP:X/DL:M/BC:H/PS:X/UM:X/SC:X/ST:X/PH:X/AV:X
 ```
 
 **Calculation Steps**:
 
-1. **Context Multiplier**:
-   - No assessable context components
+1. **Security Average**:
+   - No assessable security components
    - Default: 1.0
 
 2. **Exposure Factor**:
    - NE(1.0) × DL(2.5) × BC(2.5) = 6.25
    - Normalized: 6.25 / 27.0 = 0.231
 
-3. **Combined Factor**:
+3. **Operational Average**:
+   - No assessable operational components
+   - Not included in calculation
+
+4. **Combined Factor**:
    - 1.0 × 0.231 = 0.231 (≤ 1, use minimum threshold formula)
 
-4. **Contextual Risk Score**:
+5. **Contextual Risk Score**:
    - Adjusted: 10.0 × 0.7 × 0.231 = 1.62
    - Minimum: 10.0 × 0.2 = 2.0
    - CRS: max(1.62, 2.0) = **2.0** (Low)
@@ -211,13 +233,155 @@ SSCV:1.0/OS:X/NE:I/AC:X/EP:X/DL:M/BC:H/PS:X/UM:X/SC:X
 
 ---
 
+## Example 6: Critical Infrastructure Control System
+
+**Scenario**: Industrial control system managing power grid operations.
+
+**System Profile**:
+- Current OS with security hardening
+- Internal network with controlled access
+- Full access controls with MFA
+- Advanced endpoint protection
+- Critical infrastructure data
+- Critical business function
+- Current patches (delayed for safety validation)
+- Scheduled updates during maintenance windows
+- Managed supply chain
+- Critical safety requirements (power grid stability)
+- Fortress-level physical security
+- Critical availability requirements (99.99% uptime)
+
+**SSCV String**:
+```
+SSCV:1.0/OS:C/NE:I/AC:F/EP:A/DL:C/BC:C/PS:C/UM:S/SC:M/ST:C/PH:F/AV:C
+```
+
+**Calculation Steps**:
+
+1. **Security Average**:
+   - Components: OS(1.0) + AC(1.0) + EP(1.0) + PS(1.0) + UM(1.5) + SC(1.5)
+   - Average: (1.0 + 1.0 + 1.0 + 1.0 + 1.5 + 1.5) / 6 = 1.17
+
+2. **Exposure Factor**:
+   - NE(1.0) × DL(3.0) × BC(3.0) = 9.0
+   - Normalized: 9.0 / 27.0 = 0.333
+
+3. **Operational Average**:
+   - Components: ST(2.0) + PH(0.7) + AV(2.0)
+   - Average: (2.0 + 0.7 + 2.0) / 3 = 1.57
+
+4. **Combined Factor**:
+   - 1.17 × 0.333 × 1.57 = 0.612 (≤ 1, use minimum threshold formula)
+
+5. **Contextual Risk Score**:
+   - Adjusted: 7.3 × 0.7 × 0.612 = 3.13
+   - Minimum: 7.3 × 0.2 = 1.46
+   - CRS: max(3.13, 1.46) = **3.13** (Low)
+
+**Result**: Strong security and physical controls balance operational constraints, appropriately reducing risk while acknowledging safety requirements.
+
+---
+
+## Example 7: Legacy Manufacturing System
+
+**Scenario**: Older manufacturing control system that cannot be easily updated due to operational requirements.
+
+**System Profile**:
+- Legacy OS (Windows 7 embedded)
+- Air-gapped network
+- Operational access (no authentication for safety)
+- No endpoint protection (incompatible)
+- Internal business data
+- Critical business function
+- Unknown patch status
+- Cannot be updated (embedded system)
+- Unmanaged supply chain
+- Critical safety requirements
+- High physical security
+- Critical availability requirements
+
+**SSCV String**:
+```
+SSCV:1.0/OS:L/NE:A/AC:O/EP:N/DL:I/BC:C/PS:U/UM:N/SC:U/ST:C/PH:H/AV:C
+```
+
+**Calculation Steps**:
+
+1. **Security Average**:
+   - Components: OS(3.0) + AC(2.5) + EP(3.0) + PS(3.0) + UM(3.0) + SC(2.5)
+   - Average: (3.0 + 2.5 + 3.0 + 3.0 + 3.0 + 2.5) / 6 = 2.83
+
+2. **Exposure Factor**:
+   - NE(0.3) × DL(1.5) × BC(3.0) = 1.35
+   - Normalized: 1.35 / 27.0 = 0.05
+
+3. **Operational Average**:
+   - Components: ST(2.0) + PH(1.0) + AV(2.0)
+   - Average: (2.0 + 1.0 + 2.0) / 3 = 1.67
+
+4. **Combined Factor**:
+   - 2.83 × 0.05 × 1.67 = 0.236 (≤ 1, use minimum threshold formula)
+
+5. **Contextual Risk Score**:
+   - Adjusted: 8.8 × 0.7 × 0.236 = 1.45
+   - Minimum: 8.8 × 0.2 = 1.76
+   - CRS: max(1.45, 1.76) = **1.76** (Low)
+
+**Result**: Air-gapped environment and physical security compensate for poor software security posture, but operational constraints are acknowledged.
+
+---
+
+## Example 8: Modified Threshold Calculation
+
+**Scenario**: Organization using 0% threshold for academic analysis of raw risk calculations.
+
+**System Profile**:
+- Current OS
+- Internal network
+- Full access controls
+- Advanced endpoint protection  
+- Mixed data sensitivity
+- High business criticality
+- Current patches
+- Automatic updates
+- Managed supply chain
+
+**SSCV String**:
+```
+SSCV:1.0/OS:C/NE:I/AC:F/EP:A/DL:M/BC:H/PS:C/UM:A/SC:M
+```
+
+**Calculation Steps**:
+
+1. **Security Average**:
+   - Components: OS(1.0) + AC(1.0) + EP(1.0) + PS(1.0) + UM(1.0) + SC(1.5)
+   - Average: (1.0 + 1.0 + 1.0 + 1.0 + 1.0 + 1.5) / 6 = 1.08
+
+2. **Exposure Factor**:
+   - NE(1.0) × DL(2.5) × BC(2.5) = 6.25
+   - Normalized: 6.25 / 27.0 = 0.231
+
+3. **Combined Factor**:
+   - 1.08 × 0.231 = 0.249 (≤ 1, use minimum threshold formula)
+
+4. **Contextual Risk Score** (0% threshold):
+   - Raw: 8.1 × 0.7 × 0.249 = 1.41
+   - CRS: **1.41~** (Low)
+
+**Result**: Using 0% threshold shows raw calculation marked with tilde (~) notation. Standard calculation would be max(1.41, 1.62) = **1.62** (Low).
+
+---
+
 ## Key Takeaways
 
 1. **Context Matters**: The same CVSS score can result in vastly different contextual risk scores
-2. **Minimum Threshold**: SSCV never reduces risk below 20% of the original CVSS score
+2. **Minimum Threshold**: SSCV never reduces risk below 20% of the original CVSS score (unless using modified thresholds marked with ~)
 3. **Maximum Amplification**: Risk can be amplified up to 2x the original CVSS score
 4. **Gradual Adoption**: Using 'X' for unassessed components allows organizations to start small
-5. **Multiple Factors**: Both security controls and exposure factors contribute to the final score
+5. **Operational Reality**: New components (ST, PH, AV) acknowledge operational constraints that affect security implementation
+6. **Industrial Systems**: Framework now includes specific support for manufacturing, infrastructure, and safety-critical systems
+7. **Modified Thresholds**: Organizations can use different minimum thresholds but must mark scores with ~ for transparency
+8. **Three-Factor Calculation**: Security, exposure, and operational factors all contribute to the final risk assessment
 
 ## Interactive Testing
 

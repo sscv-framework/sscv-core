@@ -43,19 +43,28 @@ header p {
     margin-bottom: 2rem;
 }
 
-.cvss-input {
+.input-section {
+    display: flex;
+    gap: 2rem;
     margin-bottom: 2rem;
-    text-align: center;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
 }
 
-.cvss-input label {
+.cvss-input, .threshold-input {
+    text-align: center;
+    min-width: 200px;
+}
+
+.cvss-input label, .threshold-input label {
     display: block;
     font-weight: 600;
     margin-bottom: 0.5rem;
     font-size: 1.1rem;
 }
 
-.cvss-input input {
+.cvss-input input, .threshold-input input {
     width: 200px;
     padding: 12px;
     font-size: 1.2rem;
@@ -65,9 +74,17 @@ header p {
     transition: border-color 0.3s ease;
 }
 
-.cvss-input input:focus {
+.cvss-input input:focus, .threshold-input input:focus {
     outline: none;
     border-color: #667eea;
+}
+
+.threshold-input small {
+    display: block;
+    color: #6c757d;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    line-height: 1.4;
 }
 
 .components-grid {
@@ -323,6 +340,17 @@ footer a:hover {
     
     .calculator-section {
         padding: 1rem;
+    }
+    
+    .input-section {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+    
+    .cvss-input input, .threshold-input input {
+        width: 100%;
+        max-width: 250px;
     }
     
     .components-grid {

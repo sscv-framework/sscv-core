@@ -14,9 +14,17 @@
         </header>
 
         <div class="calculator-section">
-            <div class="cvss-input">
-                <label for="cvss-score">CVSS Base Score</label>
-                <input type="number" id="cvss-score" min="0" max="10" step="0.1" value="7.5" placeholder="Enter CVSS score (0-10)">
+            <div class="input-section">
+                <div class="cvss-input">
+                    <label for="cvss-score">CVSS Base Score</label>
+                    <input type="number" id="cvss-score" min="0" max="10" step="0.1" value="7.5" placeholder="Enter CVSS score (0-10)">
+                </div>
+                
+                <div class="threshold-input">
+                    <label for="min-threshold">Minimum Threshold (%)</label>
+                    <input type="number" id="min-threshold" min="0" max="100" step="1" value="20" placeholder="20">
+                    <small>Standard: 20% (scores using other values get ~ suffix)</small>
+                </div>
             </div>
 
             <div class="components-grid">
@@ -49,6 +57,7 @@
                     <select id="ac" data-component="AC">
                         <option value="X">Not Assessed (X)</option>
                         <option value="N">None (N)</option>
+                        <option value="O">Operational (O)</option>
                         <option value="B">Basic (B)</option>
                         <option value="F" selected>Full (F)</option>
                         <option value="Z">Zero-trust (Z)</option>
@@ -127,12 +136,48 @@
                     </select>
                     <small>Supply chain security status</small>
                 </div>
+                
+                <div class="component-group">
+                    <h3>Safety Requirements (ST)</h3>
+                    <select id="st" data-component="ST">
+                        <option value="X">Not Assessed (X)</option>
+                        <option value="N" selected>None (N)</option>
+                        <option value="L">Low (L)</option>
+                        <option value="M">Moderate (M)</option>
+                        <option value="C">Critical (C)</option>
+                    </select>
+                    <small>Impact of security on operational safety</small>
+                </div>
+                
+                <div class="component-group">
+                    <h3>Physical Security (PH)</h3>
+                    <select id="ph" data-component="PH">
+                        <option value="X">Not Assessed (X)</option>
+                        <option value="N">None (N)</option>
+                        <option value="B">Basic (B)</option>
+                        <option value="H" selected>High (H)</option>
+                        <option value="F">Fortress (F)</option>
+                    </select>
+                    <small>Physical access controls</small>
+                </div>
+                
+                <div class="component-group">
+                    <h3>Availability Requirements (AV)</h3>
+                    <select id="av" data-component="AV">
+                        <option value="X">Not Assessed (X)</option>
+                        <option value="B">Basic (B)</option>
+                        <option value="S" selected>Standard (S)</option>
+                        <option value="H">High (H)</option>
+                        <option value="C">Critical (C)</option>
+                    </select>
+                    <small>System uptime requirements</small>
+                </div>
             </div>
 
             <div class="results-section">
                 <div class="sscv-string">
                     <h3>SSCV String</h3>
-                    <div id="sscv-output" class="sscv-display">SSCV:1.0/OS:C/NE:I/AC:F/EP:A/DL:M/BC:H/PS:C/UM:A/SC:X</div>
+                    <div id="sscv-output" class="sscv-display">SSCV:1.0/OS:C/NE:I/AC:F/EP:A/DL:M/BC:H/PS:C/UM:A/SC:X/ST:N/PH:H/AV:S</div>
                     <button id="copy-sscv" class="copy-btn">Copy to Clipboard</button>
                 </div>
 
@@ -143,8 +188,9 @@
                         <span id="crs-severity" class="severity medium">Medium</span>
                     </div>
                     <div class="score-details">
-                        <div>Context Multiplier: <span id="context-multiplier">0.95</span></div>
+                        <div>Security Average: <span id="security-average">0.95</span></div>
                         <div>Exposure Factor: <span id="exposure-factor">0.74</span></div>
+                        <div id="operational-row" style="display: none;">Operational Average: <span id="operational-average">1.0</span></div>
                         <div>Formula Used: <span id="formula-used">minimum_threshold</span></div>
                     </div>
                 </div>

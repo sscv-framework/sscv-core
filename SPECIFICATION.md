@@ -20,7 +20,7 @@ SSCV bridges this gap by providing a compact, standardized notation for system s
 SSCV uses a format similar to CVSS for familiarity and ease of parsing:
 
 ```
-SSCV:1.0/OS:C/NE:I/AC:F/EP:A/DL:M/BC:H/PS:C/UM:A/SC:M
+SSCV:1.0/OS:C/NE:I/AC:F/EP:A/DL:M/BC:H/PS:C/UM:A/SC:M/ST:N/PH:H/AV:H
 ```
 
 ### 1.3 Flexible Adoption
@@ -64,12 +64,13 @@ Indicates the authentication and authorization mechanisms.
 | Value | Name | Description | Risk Weight |
 |-------|------|-------------|-------------|
 | N | None | No authentication required | 3.0 |
+| O | Operational | No auth by design for safety/operational requirements | 2.5 |
 | B | Basic | Single-factor authentication | 2.0 |
 | F | Full | MFA + role-based access control | 1.0 |
 | Z | Zero-trust | Continuous verification, micro-segmentation | 0.7 |
 | X | Not Evaluated | This component was not included in the assessment | N/A |
 
-Note: Zero-trust architectures retain 0.7 weight as they reduce but cannot eliminate risks from sophisticated attacks or insider threats.
+Note: "Operational" (O) recognizes systems where authentication could compromise safety (e.g., emergency stops) but distinguishes from poor security practices. Zero-trust architectures retain 0.7 weight as they reduce but cannot eliminate risks from sophisticated attacks or insider threats.
 
 ### 2.4 EP - Endpoint Protection
 
@@ -153,6 +154,46 @@ Measures the integrity and security of the system's software and hardware supply
 
 Even verified supply chains retain 0.8 weight due to the possibility of sophisticated supply chain compromises.
 
+### 2.10 ST - Safety Requirements
+
+Measures the impact of security controls on operational safety.
+
+| Value | Name | Description | Risk Weight |
+|-------|------|-------------|-------------|
+| N | None | No safety implications | 1.0 |
+| L | Low | Minor safety considerations | 1.2 |
+| M | Moderate | Some safety-security trade-offs required | 1.5 |
+| C | Critical | Security controls could compromise life safety | 2.0 |
+| X | Not Evaluated | Safety requirements were not assessed | N/A |
+
+Note: Higher weights reflect that safety-critical systems may require accepting higher cyber risk to maintain physical safety.
+
+### 2.11 PH - Physical Security
+
+Describes the physical access controls protecting the system.
+
+| Value | Name | Description | Risk Weight |
+|-------|------|-------------|-------------|
+| N | None | No physical security controls | 3.0 |
+| B | Basic | Locked doors, basic access control | 2.0 |
+| H | High | Multi-factor physical access, monitored facilities | 1.0 |
+| F | Fortress | Secured facility with armed guards, extensive monitoring | 0.7 |
+| X | Not Evaluated | Physical security was not assessed | N/A |
+
+### 2.12 AV - Availability Requirements
+
+Indicates the system's uptime requirements and tolerance for downtime.
+
+| Value | Name | Description | Risk Weight |
+|-------|------|-------------|-------------|
+| B | Basic | Standard business hours, planned downtime acceptable | 1.0 |
+| S | Standard | 99%+ uptime, scheduled maintenance windows available | 1.2 |
+| H | High | 99.9%+ uptime, limited maintenance windows | 1.5 |
+| C | Critical | 99.99%+ uptime, mission-critical, minimal downtime tolerance | 2.0 |
+| X | Not Evaluated | Availability requirements were not assessed | N/A |
+
+Note: Higher weights reflect that strict availability requirements limit patching windows and may require accepting security risks to maintain uptime commitments.
+
 ## 3. Calculating Contextual Risk Score
 
 ### 3.1 Core Formula
@@ -164,21 +205,26 @@ The Contextual Risk Score (CRS) uses a hybrid approach that ensures meaningful m
 - This allows organizations to start with partial assessments and improve over time
 
 ```
-Step 1: Calculate base components
-- Context_Multiplier = Sum of (OS + AC + EP + PS + UM + SC) / Count of Evaluated Components
+Step 1: Calculate component groups
+- Security_Average = Average of evaluated: OS, AC, EP, PS, UM, SC
 - Exposure_Factor = (NE × DL × BC) / 27
+- Operational_Average = Average of evaluated: ST, PH, AV
 
 Step 2: Apply reality adjustment
-- Adjusted_Score = CVSS_Base × 0.7 × Context_Multiplier × Exposure_Factor
+- If operational components (ST, PH, AV) are evaluated:
+    Adjusted_Score = CVSS_Base × 0.7 × Security_Average × Exposure_Factor × Operational_Average
+- Else:
+    Adjusted_Score = CVSS_Base × 0.7 × Security_Average × Exposure_Factor
 
 Step 3: Apply minimum threshold
 - Minimum_Score = CVSS_Base × 0.2
 
 Step 4: Calculate final CRS
-- If Context_Multiplier × Exposure_Factor ≤ 1:
+- Combined_Factor = Security_Average × Exposure_Factor × Operational_Average (if applicable)
+- If Combined_Factor ≤ 1:
     CRS = max(Adjusted_Score, Minimum_Score)
-- If Context_Multiplier × Exposure_Factor > 1:
-    CRS = min(CVSS_Base × Context_Multiplier × Exposure_Factor, CVSS_Base × 2)
+- If Combined_Factor > 1:
+    CRS = min(Raw_Score, CVSS_Base × 2)
 ```
 
 - The 0.7 factor represents that best-case security can reduce risk by maximum 70%
@@ -194,7 +240,22 @@ The framework enforces minimum risk scores because:
 3. **Unknown Unknowns**: New attack vectors constantly emerge
 4. **Practical Experience**: Historical data shows that "secure" systems still get breached
 
-### 3.3 Severity Mapping
+### 3.3 Modified Threshold Notation
+
+When organizations choose to use a minimum threshold other than the standard 20%, the resulting CRS must be marked with a tilde (~) suffix:
+
+- **Standard calculation (20% minimum)**: `5.2`
+- **Modified threshold**: `5.2~`
+
+This notation ensures transparency when scores are shared. The SSCV vector string remains unchanged - only the final CRS score receives the tilde suffix. Organizations using modified thresholds should document their chosen percentage for audit and compliance purposes.
+
+Examples:
+
+- `CRS: 3.4` - Standard SSCV calculation with 20% minimum
+- `CRS: 3.4~` - Modified calculation (could be 0%, 30%, or any non-standard threshold)
+- `CRS: 0.8~` - Likely using 0% threshold (raw calculation)
+
+### 3.4 Severity Mapping
 
 | CRS Range | Severity | Action Required |
 |-----------|----------|-----------------|
@@ -213,7 +274,7 @@ The framework enforces minimum risk scores because:
 **CVSS**: 10.0
 
 **Calculation**:
-- Context_Multiplier = (1.0 + 1.0 + 1.0 + 1.0 + 1.0 + 1.5) / 6 = 1.08
+- Security_Average = (1.0 + 1.0 + 1.0 + 1.0 + 1.0 + 1.5) / 6 = 1.08
 - Exposure_Factor = (3.0 × 2.5 × 2.5) / 27 = 0.694
 - Combined Factor = 1.08 × 0.694 = 0.75
 - Since combined factor ≤ 1:
@@ -221,41 +282,81 @@ The framework enforces minimum risk scores because:
   - Minimum_Score = 10.0 × 0.2 = 2.0
   - CRS = max(5.25, 2.0) = **5.25 (Medium)**
 
-### Example 2: Air-Gapped Industrial System
+Note: In this case, the adjusted score exceeds the 20% minimum threshold, so the final score would be the same whether using standard or modified thresholds.
 
-**System**: Air-gapped industrial control system  
-**SSCV**: `SSCV:1.0/OS:L/NE:A/AC:N/EP:N/DL:I/BC:C/PS:U/UM:N/SC:U`  
-**Vulnerability**: Buffer overflow requiring local access  
-**CVSS**: 7.0
+### Example 2: Healthcare Database Server
+
+**System**: Hospital patient records database  
+**SSCV**: `SSCV:1.0/OS:H/NE:I/AC:Z/EP:M/DL:C/BC:C/PS:C/UM:A/SC:V/ST:N/PH:H/AV:H`  
+**Vulnerability**: Privilege escalation vulnerability  
+**CVSS**: 7.8
 
 **Calculation**:
-- Context_Multiplier = (3.0 + 3.0 + 3.0 + 3.0 + 3.0 + 2.5) / 6 = 2.92
-- Exposure_Factor = (0.3 × 1.5 × 3.0) / 27 = 0.05
-- Combined Factor = 2.92 × 0.05 = 0.146
+- Security_Average = (0.8 + 0.7 + 0.8 + 1.0 + 1.0 + 0.8) / 6 = 0.85
+- Exposure_Factor = (1.0 × 3.0 × 3.0) / 27 = 0.333
+- Operational_Average = (1.0 + 1.0 + 1.5) / 3 = 1.17
+- Combined_Factor = 0.85 × 0.333 × 1.17 = 0.331
 - Since combined factor ≤ 1:
-  - Adjusted_Score = 7.0 × 0.7 × 0.146 = 0.72
-  - Minimum_Score = 7.0 × 0.2 = 1.4
-  - CRS = max(0.72, 1.4) = **1.4 (Low)**
+  - Adjusted_Score = 7.8 × 0.7 × 0.331 = 1.81
+  - Minimum_Score = 7.8 × 0.2 = 1.56
+  - CRS = max(1.81, 1.56) = **1.81 (Low)**
 
-Note: Even with air-gapping and poor security, the minimum threshold ensures the risk isn't dismissed.
+Note: Excellent security posture significantly reduces risk, but minimum threshold ensures continued vigilance. If an organization used 0% threshold, the score would be **1.81~** indicating raw calculation.
 
-### Example 3: Getting Started Without Supply Chain Assessment
+### Example 3: Legacy Financial System
 
-**System**: Internal database server (supply chain not yet assessed)  
-**SSCV**: `SSCV:1.0/OS:C/NE:I/AC:F/EP:A/DL:M/BC:H/PS:C/UM:A/SC:X`  
+**System**: Core banking transaction processor  
+**SSCV**: `SSCV:1.0/OS:L/NE:I/AC:B/EP:B/DL:C/BC:C/PS:B/UM:M/SC:U/ST:N/PH:H/AV:C`  
+**Vulnerability**: Remote code execution  
+**CVSS**: 8.8
+
+**Calculation**:
+- Security_Average = (3.0 + 2.0 + 2.0 + 2.5 + 2.0 + 2.5) / 6 = 2.33
+- Exposure_Factor = (1.0 × 3.0 × 3.0) / 27 = 0.333
+- Operational_Average = (1.0 + 1.0 + 2.0) / 3 = 1.33
+- Combined_Factor = 2.33 × 0.333 × 1.33 = 1.03
+- Since combined factor > 1:
+  - Raw_Score = 8.8 × 1.03 = 9.06
+  - CRS = min(9.06, 8.8 × 2) = **9.06 (Critical)**
+
+Note: Poor security combined with critical data amplifies risk above original CVSS score.
+
+### Example 4: Getting Started Without Complete Assessment
+
+**System**: Internal database server (some components not yet assessed)  
+**SSCV**: `SSCV:1.0/OS:C/NE:I/AC:F/EP:A/DL:M/BC:H/PS:C/UM:A/SC:X/ST:X/PH:X/AV:X`  
 **Vulnerability**: SQL injection vulnerability  
 **CVSS**: 8.1
 
 **Calculation**:
-- Context_Multiplier = (1.0 + 1.0 + 1.0 + 1.0 + 1.0) / 5 = 1.0 (SC excluded)
+- Security_Average = (1.0 + 1.0 + 1.0 + 1.0 + 1.0) / 5 = 1.0 (SC excluded)
 - Exposure_Factor = (1.0 × 2.5 × 2.5) / 27 = 0.231
-- Combined Factor = 1.0 × 0.231 = 0.231
+- Combined Factor = 1.0 × 0.231 = 0.231 (Operational components excluded)
 - Since combined factor ≤ 1:
   - Adjusted_Score = 8.1 × 0.7 × 0.231 = 1.31
   - Minimum_Score = 8.1 × 0.2 = 1.62
   - CRS = max(1.31, 1.62) = **1.62 (Low)**
 
-This example shows how organizations can use SSCV effectively even without assessing all components.
+This example shows how organizations can use SSCV effectively even without assessing all components. The score would be **1.31~** if using 0% threshold instead of the standard 20%.
+
+### Example 5: Critical Infrastructure Control System
+
+**System**: Power grid monitoring system  
+**SSCV**: `SSCV:1.0/OS:C/NE:I/AC:F/EP:A/DL:C/BC:C/PS:C/UM:S/SC:M/ST:C/PH:F/AV:C`  
+**Vulnerability**: Buffer overflow in monitoring service  
+**CVSS**: 7.3
+
+**Calculation**:
+- Security_Average = (1.0 + 1.0 + 1.0 + 1.0 + 1.5 + 1.5) / 6 = 1.17
+- Exposure_Factor = (1.0 × 3.0 × 3.0) / 27 = 0.333
+- Operational_Average = (2.0 + 0.7 + 2.0) / 3 = 1.57
+- Combined_Factor = 1.17 × 0.333 × 1.57 = 0.612
+- Since combined factor ≤ 1:
+  - Adjusted_Score = 7.3 × 0.7 × 0.612 = 3.13
+  - Minimum_Score = 7.3 × 0.2 = 1.46
+  - CRS = max(3.13, 1.46) = **3.13 (Low)**
+
+Note: Strong security controls and physical protection appropriately reduce risk while safety requirements are acknowledged.
 
 ## 5. Implementation Guidelines
 
@@ -268,17 +369,10 @@ This example shows how organizations can use SSCV effectively even without asses
 
 Example minimal viable SSCV:
 ```
-SSCV:1.0/OS:C/NE:I/AC:F/EP:X/DL:M/BC:H/PS:C/UM:A/SC:X
+SSCV:1.0/OS:C/NE:I/AC:F/EP:X/DL:M/BC:H/PS:C/UM:A/SC:X/ST:X/PH:X/AV:X
 ```
 
-### 5.2 Key Principles
-
-1. **No Zero Risk**: Even the best security configuration maintains minimum 20% risk
-2. **Proportional Response**: CRS guides but doesn't replace security judgment
-3. **Regular Updates**: Reassess SSCV vectors quarterly
-4. **Progressive Enhancement**: Add components as capabilities grow
-
-### 5.3 When to Override CRS
+### 5.2 When to Override CRS
 
 - If CRS differs from CVSS severity by 2+ levels, use CRS
 - If CRS and CVSS differ by 1 level, consider additional factors:
@@ -286,6 +380,25 @@ SSCV:1.0/OS:C/NE:I/AC:F/EP:X/DL:M/BC:H/PS:C/UM:A/SC:X
   - Availability of exploit code
   - Specific threat intelligence
   - Compensating controls not captured in SSCV
+  - Safety requirements that conflict with security recommendations
+
+#### Modified Threshold Guidelines
+
+Organizations may adjust the 20% minimum threshold in specific circumstances:
+
+- **0% threshold** (marked with ~): For academic analysis or understanding raw risk calculations
+- **Higher thresholds** (25-50%, marked with ~): For highly regulated industries or conservative risk appetites
+- **Always document**: Record the threshold used and business justification
+
+Remember: The standard 20% threshold reflects security industry consensus that no system is ever completely secure. Deviations should be intentional and documented.
+
+### 5.3 Key Principles
+
+1. **No Zero Risk**: Even the best security configuration maintains minimum 20% risk
+2. **Modified Thresholds**: Organizations may adjust the minimum threshold but must mark scores with ~ suffix
+3. **Proportional Response**: CRS guides but doesn't replace security judgment
+4. **Regular Updates**: Reassess SSCV vectors quarterly
+5. **Progressive Enhancement**: Add components as capabilities grow
 
 ### 5.4 Integration Points
 
@@ -303,27 +416,45 @@ SSCV:1.0/OS:C/NE:I/AC:F/EP:X/DL:M/BC:H/PS:C/UM:A/SC:X
 |-----------|--------|--------------|------------|
 | OS | H C O L | 0.8 → 3.0 | 0.8 |
 | NE | A I P E | 0.3 → 3.0 | 0.3 |
-| AC | Z F B N | 0.7 → 3.0 | 0.7 |
+| AC | Z F B O N | 0.7 → 3.0 | 0.7 |
 | EP | M A B N | 0.8 → 3.0 | 0.8 |
 | DL | P I M C | 0.6 → 3.0 | 0.6 |
 | BC | L M H C | 0.6 → 3.0 | 0.6 |
 | PS | C D B U | 1.0 → 3.0 | 1.0 |
 | UM | A S M N | 1.0 → 3.0 | 1.0 |
 | SC | V M U K | 0.8 → 3.0 | 0.8 |
+| ST | N L M C | 1.0 → 2.0 | 1.0 |
+| PH | F H B N | 0.7 → 3.0 | 0.7 |
+| AV | B S H C | 1.0 → 2.0 | 1.0 |
 
-### 6.2 Common System Profiles
+### 6.2 Score Notation
+
+- **Standard CRS**: `5.2` (using 20% minimum threshold)
+- **Modified CRS**: `5.2~` (using non-standard threshold)
+
+### 6.3 Common System Profiles
+
+**Standard IT Systems:**
 
 - **Secure Cloud Workload**: `OS:C/NE:P/AC:F/EP:A/DL:I/BC:M/PS:C/UM:A/SC:V`
 - **Legacy Database**: `OS:O/NE:I/AC:B/EP:B/DL:C/BC:C/PS:D/UM:S/SC:U`
 - **DMZ Web Server**: `OS:H/NE:P/AC:F/EP:M/DL:M/BC:H/PS:C/UM:A/SC:M`
 - **Developer Workstation**: `OS:C/NE:E/AC:F/EP:A/DL:I/BC:L/PS:D/UM:A/SC:X`
-- **IoT Device**: `OS:L/NE:E/AC:B/EP:N/DL:P/BC:L/PS:U/UM:N/SC:X`
+
+**Industrial & Mission-Critical Systems:**
+
+- **Legacy Manufacturing**: `OS:L/NE:A/AC:O/EP:N/DL:I/BC:C/PS:U/UM:N/SC:U/ST:C/PH:H/AV:C`
+- **Modern Water Treatment**: `OS:C/NE:I/AC:F/EP:A/DL:C/BC:C/PS:C/UM:S/SC:M/ST:M/PH:H/AV:H`
+- **Financial Trading System**: `OS:C/NE:E/AC:Z/EP:M/DL:C/BC:C/PS:C/UM:A/SC:V/ST:N/PH:H/AV:C`
+- **Air Traffic Control**: `OS:H/NE:I/AC:F/EP:A/DL:C/BC:C/PS:C/UM:S/SC:V/ST:C/PH:F/AV:C`
+- **Medical Device**: `OS:L/NE:I/AC:N/EP:N/DL:C/BC:C/PS:U/UM:N/SC:U/ST:C/PH:H/AV:C`
 
 ## 7. Conclusion
 
 SSCV provides a practical framework for contextualizing vulnerability risk while maintaining the fundamental security principle that no system is ever completely secure. By enforcing minimum risk thresholds and realistic weight ranges, SSCV helps organizations make better patching decisions without creating a false sense of security.
 
 The framework acknowledges that:
+
 - Security measures reduce but never eliminate risk
 - Context matters enormously in real-world risk
 - Perfect security is an impossible goal

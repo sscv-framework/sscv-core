@@ -22,10 +22,10 @@ A CVSS 10.0 on an air-gapped, fully-patched system with no sensitive data is ver
 ### Quick Start
 
 ```
-SSCV:1.0/OS:C/NE:I/AC:F/EP:A/DL:M/BC:H/PS:C/UM:A/SC:X
+SSCV:1.0/OS:C/NE:I/AC:F/EP:A/DL:M/BC:H/PS:C/UM:A/SC:M/ST:N/PH:H/AV:S
 ```
 
-This vector describes a current OS, internal network system with full access controls, advanced endpoint protection, containing mixed sensitive data, high business criticality, current patches, automatic updates, and unevaluated supply chain.
+This vector describes a current OS, internal network system with full access controls, advanced endpoint protection, containing mixed sensitive data, high business criticality, current patches, automatic updates, managed supply chain, no safety constraints, high physical security, and standard availability requirements.
 
 **Calculate contextual risk:**
 ```
@@ -38,19 +38,31 @@ Try the [interactive calculator](./calculator/index.html) to experiment with SSC
 
 ### Component Overview
 
-SSCV evaluates 9 security dimensions:
+SSCV evaluates 12 security dimensions across three categories:
 
+**Security Components:**
 | Component | Description | Range |
 |-----------|-------------|-------|
 | **OS** | Operating System Currency | Legacy → Hardened |
-| **NE** | Network Exposure | External → Air-gapped |
 | **AC** | Access Control | None → Zero-trust |
 | **EP** | Endpoint Protection | None → Managed SOC |
-| **DL** | Data Sensitivity | Public → Critical |
-| **BC** | Business Criticality | Low → Critical |
 | **PS** | Patch Status | Unknown → Current |
 | **UM** | Update Mechanism | None → Automatic |
 | **SC** | Supply Chain Security | Known Issues → Verified |
+
+**Exposure Components:**
+| Component | Description | Range |
+|-----------|-------------|-------|
+| **NE** | Network Exposure | External → Air-gapped |
+| **DL** | Data Sensitivity | Public → Critical |
+| **BC** | Business Criticality | Low → Critical |
+
+**Operational Components:**
+| Component | Description | Range |
+|-----------|-------------|-------|
+| **ST** | Safety Requirements | None → Critical |
+| **PH** | Physical Security | None → Fortress |
+| **AV** | Availability Requirements | Basic → Critical |
 
 Use 'X' for any component you're not ready to assess - SSCV automatically adjusts calculations.
 
@@ -60,14 +72,14 @@ Use 'X' for any component you're not ready to assess - SSCV automatically adjust
 
 **System A - Internet-facing web server:**
 ```
-SSCV:1.0/OS:C/NE:E/AC:F/EP:A/DL:M/BC:H/PS:C/UM:A/SC:M
-Contextual Risk Score: 5.25 (Medium)
+SSCV:1.0/OS:C/NE:E/AC:F/EP:A/DL:C/BC:C/PS:C/UM:A/SC:M/ST:N/PH:H/AV:H
+Contextual Risk Score: 8.5 (High)
 ```
 
 **System B - Legacy internal system:**
 ```
-SSCV:1.0/OS:L/NE:I/AC:B/EP:B/DL:C/BC:C/PS:B/UM:M/SC:U
-Contextual Risk Score: 9.2 (Critical)
+SSCV:1.0/OS:L/NE:I/AC:B/EP:B/DL:M/BC:H/PS:B/UM:M/SC:U/ST:N/PH:B/AV:S
+Contextual Risk Score: 6.2 (Medium)
 ```
 
 Same vulnerability, different real-world risk.
@@ -79,6 +91,8 @@ Same vulnerability, different real-world risk.
 - **Security Metrics**: Track security posture improvements over time
 - **Cyber Insurance**: Potential premium adjustments based on SSCV scores
 - **M&A Due Diligence**: Assess security debt in acquisitions
+- **Industrial Control Systems**: Assess OT/ICS systems with safety and operational constraints
+- **Critical Infrastructure**: Balance security with availability and safety requirements
 
 See [examples/](./examples/) for detailed use cases and integration patterns.
 
@@ -92,6 +106,12 @@ A: Because perfect security doesn't exist. Even the best defenses can be bypasse
 
 **Q: How often should I update SSCV scores?**  
 A: Quarterly for most systems, or after significant changes.
+
+**Q: What are the new operational components?**  
+A: ST (Safety Requirements), PH (Physical Security), and AV (Availability Requirements) help assess systems where operational constraints affect security implementation.
+
+**Q: Can I use different minimum thresholds?**  
+A: Yes, but scores must be marked with ~ (e.g., 3.2~) to indicate non-standard calculation.
 
 ### Contributing
 
