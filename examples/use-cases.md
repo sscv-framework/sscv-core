@@ -401,7 +401,7 @@ Note: System D uses modified threshold (marked with ~) per organizational policy
 
 ## Getting Started
 
-1. **Try the Calculator**: Use the [SSCV Calculator](../calculator/index.html) to experiment with your systems
+1. **Try the Calculator**: Use the <a href="https://sscv-framework.org/calculator" target="_blank">SSCV Calculator</a> to experiment with your systems
 2. **Read the Specification**: Review the [full SSCV specification](../SPECIFICATION.md)
 3. **Start Small**: Begin with 5-10 critical systems
 4. **Measure Progress**: Track risk reduction over time

@@ -31,7 +31,7 @@ We welcome contributions in many forms:
    ```
 
 2. **Test the Calculator**
-   - Open `calculator/index.html` in your browser
+   - Visit the <a href="https://sscv-framework.org/calculator" target="_blank">interactive calculator</a>
    - Verify calculations work correctly
    - Test with different SSCV configurations
 

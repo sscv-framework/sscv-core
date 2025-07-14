@@ -34,7 +34,7 @@ Contextual Risk Score = CVSS Score × SSCV Context
 
 ### Interactive Calculator
 
-Try the [interactive calculator](./calculator/index.html) to experiment with SSCV scores and see real-time contextual risk calculations.
+Try the <a href="https://sscv-framework.org/calculator" target="_blank">interactive calculator</a> to experiment with SSCV scores and see real-time contextual risk calculations.
 
 ### Component Overview
 

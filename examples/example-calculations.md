@@ -241,4 +241,4 @@ SSCV:1.0/OS:X/NE:I/AC:X/EP:X/DL:M/PS:X
 
 ## Interactive Testing
 
-Use the [SSCV Calculator](../calculator/index.html) to experiment with these examples and create your own scenarios.
+Use the <a href="https://sscv-framework.org/calculator" target="_blank">SSCV Calculator</a> to experiment with these examples and create your own scenarios.
