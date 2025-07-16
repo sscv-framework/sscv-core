@@ -28,7 +28,7 @@ function calculateCRS(cvssBase, components, minThreshold = 0.2) {
     contextMultiplier = contextSum / contextCount;
   }
   
-  // Step 2: Calculate Exposure Factor (NE × DL / 9)
+  // Step 2: Calculate Exposure Factor (NE × DL / 8)
   let exposureFactor = 1.0;
   let neWeight = 1.0;
   let dlWeight = 1.0;
