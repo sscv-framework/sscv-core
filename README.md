@@ -93,7 +93,7 @@ A: Because perfect security doesn't exist. Even the best defenses can be bypasse
 A: Quarterly for most systems, or after significant changes.
 
 **Q: How does the calculation work?**  
-A: SSCV calculates Context Multiplier (average of OS, AC, EP, PS) × Exposure Factor (NE × DL / 9), applies a 0.7 reality adjustment, and enforces a 20% minimum threshold.
+A: SSCV calculates Context Multiplier (average of OS, AC, EP, PS) × Exposure Factor (NE × DL / 8), applies a 0.7 reality adjustment, and enforces a 20% minimum threshold.
 
 ### Contributing
 
